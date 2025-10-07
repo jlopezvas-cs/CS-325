@@ -14,6 +14,7 @@ def base():
 def home():
     return render_template('index.html')
 
+
 @app.route("/log_habit")
 def log_habit():
     return render_template("log_habit.html")
@@ -25,6 +26,15 @@ def progress():
 @app.route("/test")
 def test():
     return render_template("test.html")
+
+
+
+
+@app.route("/submit-log", methods=['SUBMIT'])
+def submit_log():
+    return render_template(submit_log)
+
+
 
 
 ##{% block body %}This is a block
