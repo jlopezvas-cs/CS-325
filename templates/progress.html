@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Habit Tracker - Progress</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+</head>
+<body>
+  <header class="container">
+    <nav>
+      <ul>
+        <li><strong>Habit Tracker</strong></li>
+      </ul>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/log_habit">Log Habit</a></li>
+        <li><a href="/progress">My Progress</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h2>My Progress</h2>
+
+    <section>
+      <h3>Stats</h3>
+      <ul>
+        <li>✅ Streak: 7 days</li>
+        <li>🔥 Total Habits Completed: 45</li>
+        <li>📅 Upcoming: 2</li>
+      </ul>
+    </section>
+
+    <section>
+      <h3>Progress Graph (placeholder)</h3>
+      <div style="height:150px; background:#ddd; text-align:center; padding-top:60px;">
+        Graph here
+      </div>
+    </section>
+
+    <section>
+      <h3>Community Leaderboard</h3>
+      <ol>
+        <li>User123 – 50 streak</li>
+        <li>Runner42 – 45 streak</li>
+        <li>WaterDrinker – 30 streak</li>
+      </ol>
+    </section>
+
+    <section>
+      <h3>Filter Controls</h3>
+      <label for="date">Select Date</label>
+      <input type="date" id="date" name="date">
+
+      <label for="filter-category">Category</label>
+      <select id="filter-category">
+        <option>All</option>
+        <option>Fitness</option>
+        <option>Health</option>
+      </select>
+    </section>
+  </main>
+
+  <footer class="container">
+    <small>© 2025 Habit Tracker</small>
+  </footer>
+</body>
+</html>
