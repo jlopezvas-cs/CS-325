@@ -28,11 +28,15 @@ def test():
     return render_template("test.html")
 
 
+@app.route("/add_log")
+def add_log():
+    return render_template("form.html")
 
-
-@app.route("/submit-log", methods=['SUBMIT'])
+@app.route("/submit_log", methods=['POST'])
 def submit_log():
-    return render_template(submit_log)
+    first_name = request.form["first_name"]
+    print(first_name)
+    return "form submitted"
 
 
 
