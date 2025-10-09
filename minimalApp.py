@@ -1,6 +1,6 @@
 from flask import Flask ##imported Flask
 from flask import render_template ##imports render templates
-
+from flask import request ##imports request
 
 
 
@@ -32,10 +32,13 @@ def test():
 def add_log():
     return render_template("form.html")
 
-@app.route("/submit_log", methods=['POST'])
+@app.route("/submit-log", methods=['POST'])
 def submit_log():
     first_name = request.form["first_name"]
+    email = request.form["email"]
     print(first_name)
+    print(email)
+    print(f"Got POST request from {first_name} with email {email}")
     return "form submitted"
 
 
