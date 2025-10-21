@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Habit Tracker - Progress</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-</head>
-<body>
-  <header class="container">
-    <nav>
-      <ul>
-        <li><strong>Habit Tracker</strong></li>
-      </ul>
-      <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/log_habit">Log Habit</a></li>
-        <li><a href="/progress">My Progress</a></li>
-      </ul>
-    </nav>
-  </header>
+{% extends 'base.html' %}
 
+{% block body %}
+
+<div class="container" style="border: 3px solid red">
   <main class="container">
     <h2>My Progress</h2>
 
@@ -60,9 +44,6 @@
       </select>
     </section>
   </main>
+</div>
 
-  <footer class="container">
-    <small>© 2025 Habit Tracker</small>
-  </footer>
-</body>
-</html>
+{% endblock %}

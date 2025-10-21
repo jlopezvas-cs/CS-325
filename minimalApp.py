@@ -1,6 +1,6 @@
-from flask import Flask ##imported Flask
-from flask import render_template ##imports render templates
-from flask import request ##imports request
+from flask import Flask #type: ignore ##imported Flask
+from flask import render_template # type: ignore ##imports render templates
+from flask import request # type: ignore ##imports request
 
 
 
