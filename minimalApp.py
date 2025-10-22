@@ -1,6 +1,23 @@
 from flask import Flask #type: ignore ##imported Flask
 from flask import render_template # type: ignore ##imports render templates
 from flask import request # type: ignore ##imports request
+from flask import redirect #imports redirect
+
+class Log:
+     # define class variables
+     habit_name = "Default Name"
+     category = "Default category"
+     frequency = "Default frequency"
+     classification = "Default type"
+
+     def __init__(self):
+         pass
+     
+a = Log()
+a.habit_name = "Drinking Water"
+a.category = "Health"
+
+data = [ Log(), a ] #makes a list with an object in it
 
 
 
@@ -15,18 +32,20 @@ def home():
     return render_template('index.html')
 
 
-@app.route("/log_habit")
+@app.route("/log_habit", methods = ["GET", "POST"])
 def log_habit():
-    return render_template("log_habit.html")
+    if request.method == 'GET':
+        # do GET Stuff
+        pass
+    elif request.method == 'POST':
+        # do POST Stuff
+        pass
+
+    return render_template("log_habit.html", log_habit = data)
 
 @app.route("/progress")
 def progress():
     return render_template("progress.html")
-
-@app.route("/test")
-def test():
-    return render_template("test.html")
-
 
 @app.route("/add_log")
 def add_log():
