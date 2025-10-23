@@ -41,11 +41,11 @@ def log_habit():
         # do POST Stuff
         pass
 
-    return render_template("log_habit.html", log_habit = data)
+    return render_template("log_habit.html")
 
 @app.route("/progress")
 def progress():
-    return render_template("progress.html")
+    return render_template("progress.html", progress = data)
 
 @app.route("/add_log")
 def add_log():
