@@ -5,12 +5,13 @@
 <div class="container" style="border: 3px solid red">
   <main class="container">
     <h2>My Progress</h2>
-    <p>{{ progress[0].habit_name }}</p>
-    <p>{{ progress[0].category }}</p>
-    <p>{{ progress[0].frequency }}</p>
-    <p>{{ progress[0].classification }}</p>
-    
-    <p>{{ progress[1].habit_name }}</p>
+    {% for obj in progress %}
+    <p>{{ obj.habit_name }}</p>
+    <p>{{ obj.category }}</p>
+    <p>{{ obj.frequency }}</p>
+    <p>{{ obj.classification }}</p>
+    {% endfor %}
+    <!-- <p>{{ progress[1].habit_name }}</p> -->
     
     
     

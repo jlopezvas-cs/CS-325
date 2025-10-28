@@ -2,26 +2,38 @@ from flask import Flask #type: ignore ##imported Flask
 from flask import render_template # type: ignore ##imports render templates
 from flask import request # type: ignore ##imports request
 from flask import redirect #imports redirect
+import os
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+import sqlalchemy.orm as so
+import sqlalchemy as sa
 
-class Log:
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+app = Flask(__name__)  ##instance of the class
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.db") #app.db defines the database filename
+db = SQLAlchemy(app) #db object representing the database itself
+migrate = Migrate(app, db)
+
+
+class Log(db.Model):
      # define class variables
-     habit_name = "Default Name"
-     category = "Default category"
-     frequency = "Default frequency"
-     classification = "Default type"
+     habit_name:sa.Mapped[str] = so.mapped_colum(index = True, default = "A Name")
+     category:sa.Mapped[str] = so.mapped_colum(index = True, default = "Default Catergory")
+     frequency:sa.Mapped[str] = so.mapped_colum(index = True, default = "Default Frequency")
+     classification:sa.Mapped[str] = so.mapped_colum(index = True, default = "Default Classification")
 
+    # The constructor
      def __init__(self):
          pass
-     
+
+
+
 a = Log()
 a.habit_name = "Drinking Water"
 a.category = "Health"
 
 data = [ Log(), a ] #makes a list with an object in it
-
-
-
-app = Flask(__name__)  ##instance of the class
 
 @app.route("/base")
 def base():
@@ -43,22 +55,27 @@ def log_habit():
 
     return render_template("log_habit.html")
 
-@app.route("/progress")
+@app.route("/progress", methods=["GET", "POST"])
 def progress():
+    if request.method == 'POST':
+        first_name = request.form["first_name"]
+        email = request.form["email"]
+        print(f"Got POST request from {first_name} with email {email}")
+   
     return render_template("progress.html", progress = data)
 
 @app.route("/add_log")
 def add_log():
     return render_template("form.html")
 
-@app.route("/submit-log", methods=['POST'])
-def submit_log():
-    first_name = request.form["first_name"]
-    email = request.form["email"]
-    print(first_name)
-    print(email)
-    print(f"Got POST request from {first_name} with email {email}")
-    return "form submitted"
+# @app.route("/submit-log", methods=['POST'])
+# def submit_log():
+#     first_name = request.form["first_name"]
+#     email = request.form["email"]
+#     print(first_name)
+#     print(email)
+#     print(f"Got POST request from {first_name} with email {email}")
+#     return render_template('progress.html', progress=data) # you can also redirect if you want a different URL
 
 
 
