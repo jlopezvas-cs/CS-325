@@ -18,10 +18,11 @@ migrate = Migrate(app, db)
 
 class Log(db.Model):
      # define class variables
-     habit_name:sa.Mapped[str] = so.mapped_colum(index = True, default = "A Name")
-     category:sa.Mapped[str] = so.mapped_colum(index = True, default = "Default Catergory")
-     frequency:sa.Mapped[str] = so.mapped_colum(index = True, default = "Default Frequency")
-     classification:sa.Mapped[str] = so.mapped_colum(index = True, default = "Default Classification")
+     id:so.Mapped[int] = so.mapped_column(primary_key = True)
+     habit_name:so.Mapped[str] = so.mapped_column(index = True, default = "A Name")
+     category:so.Mapped[str] = so.mapped_column(index = True, default = "Default Catergory")
+     frequency:so.Mapped[str] = so.mapped_column(index = True, default = "Default Frequency")
+     classification:so.Mapped[str] = so.mapped_column(index = True, default = "Default Classification")
 
     # The constructor
      def __init__(self):
