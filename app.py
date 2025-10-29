@@ -45,6 +45,8 @@ def home():
     return render_template('index.html')
 
 
+
+
 @app.route("/log_habit", methods = ["GET", "POST"])
 def log_habit():
     if request.method == 'GET':
