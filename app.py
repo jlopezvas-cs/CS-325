@@ -29,16 +29,14 @@ class Log(db.Model):
          pass
 
 
-
-a = Log()
-a.habit_name = "Drinking Water"
-a.category = "Health"
-
 data = [ Log(), a ] #makes a list with an object in it
+
 
 @app.route("/base")
 def base():
     return render_template("base.html")
+
+
 
 @app.route("/")  ##decorator route("/") that tells what URL should trigger the function
 def home():
@@ -58,14 +56,25 @@ def log_habit():
 
     return render_template("log_habit.html")
 
+
+
 @app.route("/progress", methods=["GET", "POST"])
 def progress():
+    #create a database query
+    query = sa.select(Log)
+    d = db.session.scalars(query).all()
+
     if request.method == 'POST':
         first_name = request.form["first_name"]
         email = request.form["email"]
         print(f"Got POST request from {first_name} with email {email}")
-   
+        obj = Log()
+        db.session.add(obj) #prepares for changes but does not modify db just yet
+
+    db.session.commit() #commit changes at the end of the route, makes the actual changes.
     return render_template("progress.html", progress = data)
+
+
 
 @app.route("/add_log")
 def add_log():
