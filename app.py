@@ -7,6 +7,14 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 import sqlalchemy.orm as so
 import sqlalchemy as sa
+from flask_login import LoginManager
+from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import current_user, login_user
+from flask_login import logout_user
+from flask_login import login_required
+
+
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -14,6 +22,21 @@ app = Flask(__name__)  ##instance of the class
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(basedir, "app.db") #app.db defines the database filename
 db = SQLAlchemy(app) #db object representing the database itself
 migrate = Migrate(app, db)
+login = LoginManager(app)
+login.login_view = 'login'
+
+
+
+class User(UserMixin, db.Model):
+    # ...
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
 
 
 class Log(db.Model):
@@ -29,20 +52,42 @@ class Log(db.Model):
          pass
 
 
-data = [ Log(), a ] #makes a list with an object in it
 
+data = [ Log()] #makes a list with an object in it
+
+
+@login.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
+
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = db.session.scalar(sa.select(User).where(User.username == request.form['username']))
+    if user is None or not user.check_password(form.password.data):
+        flash('Invalid username or password')
+        return redirect(url_for('login'))
+    login_user(user)
+    return redirect(url_for('index'))
+    return render_template('login.html', title='Sign In', form=form)
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 @app.route("/base")
 def base():
     return render_template("base.html")
 
 
-
 @app.route("/")  ##decorator route("/") that tells what URL should trigger the function
 def home():
     return render_template('index.html')
-
-
 
 
 @app.route("/log_habit", methods = ["GET", "POST"])
